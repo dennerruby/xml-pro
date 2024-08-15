@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Xml processings</h1>
+
+<div id="xml_processings">
+  <% @xml_processings.each do |xml_processing| %>
+    <%= render xml_processing %>
+    <p>
+      <%= link_to "Show this xml processing", xml_processing %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New xml processing", new_xml_processing_path %>

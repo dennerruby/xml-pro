@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @xml_processing %>
+
+<div>
+  <%= link_to "Edit this xml processing", edit_xml_processing_path(@xml_processing) %> |
+  <%= link_to "Back to xml processings", xml_processings_path %>
+
+  <%= button_to "Destroy this xml processing", @xml_processing, method: :delete %>
+</div>
