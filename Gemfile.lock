@@ -261,6 +261,7 @@ DEPENDENCIES
   devise (~> 4.9)
   importmap-rails
   jbuilder
+  nokogiri
   puma (~> 5.0)
   rails (~> 7.0.8, >= 7.0.8.1)
   selenium-webdriver

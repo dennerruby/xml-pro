@@ -1,10 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @xml_processing %>
-
-<div>
-  <%= link_to "Edit this xml processing", edit_xml_processing_path(@xml_processing) %> |
-  <%= link_to "Back to xml processings", xml_processings_path %>
-
-  <%= button_to "Destroy this xml processing", @xml_processing, method: :delete %>
+<div id="<% dom_id @xml_processing%>">
+    <% if @xml_processing.xml_file.attached? %>
+        <%= link_to 'Download XML', rails_blob_path(@xml_processing.xml_file, disposition: "attachment") %>
+        <h2>Dados do Documento Fiscal</h2>
+        <p><strong>Número de Série:</strong> <%= @report_data[:series] %></p>
+        <p><strong>Número da Nota Fiscal:</strong> <%= @report_data[:invoice_number] %></p>
+        <p><strong>Data e Hora de Emissão:</strong> <%= @report_data[:date_time_issue] %></p>
+        <p><strong> Dados do Emitente:</strong> <%= @report_data[:issuer_data] %></p>
+        <p><strong> Destinatário:</strong> <%= @report_data[:receiver] %></p>
+    <% end %>
 </div>

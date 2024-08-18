@@ -8,10 +8,11 @@ class XmlProcessingsController < ApplicationController
 
   # GET /xml_processings/1 or /xml_processings/1.json
   def show
-    if @xml_processing.nil?
-      redirect_to xml_processings_path, alert: 'Processamento de XML não encontrado.'
-    else
-      @xml_processing.xml_file
+    @xml_processing = XmlProcessing.find(params[:id])
+    if @xml_processing.xml_file.attached?
+      xml_content = @xml_processing.xml_file.download
+      @parsed_xml = Nokogiri::XML(xml_content)
+      @report_data = extract_report_data(@parsed_xml)
     end
   end
 
@@ -58,6 +59,17 @@ class XmlProcessingsController < ApplicationController
   end
 
   private
+
+    def extract_report_data(parsed_xml)
+      byebug
+      report_data = {}
+      report_data[:series] = parsed_xml.search('serie').text
+      report_data[:invoice_number] = parsed_xml.search('nNF').text
+      report_data[:date_time_issue] = parsed_xml.search('dhEmi').text
+      report_data[:issuer_data] = parsed_xml.search('emit').text
+      report_data[:receiver] = parsed_xml.search('dest').text
+      report_data
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_xml_processing
       @xml_processing = XmlProcessing.find(params[:id])
