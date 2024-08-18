@@ -8,6 +8,11 @@ class XmlProcessingsController < ApplicationController
 
   # GET /xml_processings/1 or /xml_processings/1.json
   def show
+    if @xml_processing.nil?
+      redirect_to xml_processings_path, alert: 'Processamento de XML não encontrado.'
+    else
+      @xml_processing.xml_file
+    end
   end
 
   # GET /xml_processings/new
@@ -22,15 +27,10 @@ class XmlProcessingsController < ApplicationController
   # POST /xml_processings or /xml_processings.json
   def create
     @xml_processing = XmlProcessing.new(xml_processing_params)
-
-    respond_to do |format|
-      if @xml_processing.save
-        format.html { redirect_to xml_processing_url(@xml_processing), notice: "Xml processing was successfully created." }
-        format.json { render :show, status: :created, location: @xml_processing }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @xml_processing.errors, status: :unprocessable_entity }
-      end
+    if @xml_processing.save
+      redirect_to @xml_processing, notice: 'Upload do XML feito com sucesso.'
+    else
+      render :new
     end
   end
 
@@ -65,6 +65,6 @@ class XmlProcessingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def xml_processing_params
-      params.fetch(:xml_processing, {})
+      params.require(:xml_processing).permit(:xml_file)
     end
 end

@@ -1,2 +1,5 @@
 <div id="<%= dom_id xml_processing %>">
+  <% if xml_processing.xml_file.attached? %>
+    <%= link_to 'Baixar XML', rails_blob_path(xml_processing.xml_file, disposition: "attachment") %>
+  <% end %>
 </div>
