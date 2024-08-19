@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-   # Rotas do Devise para usuários
-  devise_for :users
+  root 'home#index'
+
   resources :xml_processings
- 
+
 end
