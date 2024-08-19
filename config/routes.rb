@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resources :xml_processings
+   # Rotas do Devise para usuários
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :xml_processings
+  root to: 'xml_processings#new'
 end
