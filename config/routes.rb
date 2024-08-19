@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'xml_processings#index'
 
   resources :xml_processings
 
