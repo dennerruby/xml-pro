@@ -1,3 +1,3 @@
 class XmlProcessing < ApplicationRecord
-  has_one_attached :xml_file
+  has_many_attached :xml_file
 end
