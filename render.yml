@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: nome-do-seu-app
+    env: ruby
+    plan: free
+    buildCommand: bundle install && bundle exec rake db:migrate
+    startCommand: bundle exec rails server -p 10000
