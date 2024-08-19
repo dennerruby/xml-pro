@@ -1,11 +1,92 @@
 <div id="<% dom_id @xml_processing%>">
     <% if @xml_processing.xml_file.attached? %>
-        <%= link_to 'Download XML', rails_blob_path(@xml_processing.xml_file, disposition: "attachment") %>
         <h2>Dados do Documento Fiscal</h2>
-        <p><strong>Número de Série:</strong> <%= @report_data[:series] %></p>
-        <p><strong>Número da Nota Fiscal:</strong> <%= @report_data[:invoice_number] %></p>
-        <p><strong>Data e Hora de Emissão:</strong> <%= @report_data[:date_time_issue] %></p>
-        <p><strong> Dados do Emitente:</strong> <%= @report_data[:issuer_data] %></p>
-        <p><strong> Destinatário:</strong> <%= @report_data[:receiver] %></p>
+      <% @report_data.each_with_index do |data, index| %>
+        <h3>Arquivo <%= index + 1 %></h3>
+        <p><strong>Número de Série:</strong> <%= data[:series] %></p>
+        <p><strong>Número da Nota Fiscal:</strong> <%= data[:invoice_number] %></p>
+        <p><strong>Data e Hora de Emissão:</strong> <%= data[:date_time_issue] %></p>
+        <p><strong> Dados do Emitente:</strong>
+             <p> CNPJ: <%= data[:cnpj] %> </p>
+             <p> Nome: <%= data[:xnome] %> </p>
+             <p> Nome Fantasia: <%= data[:xfant] %></p>
+             <p> <strong>Endereço: </strong>
+             <p> Longradouro: <%= data[:xlgr] %></p>
+             <p> Numero: <%= data[:nro] %></p>
+             <p> Complemento: <%= data[:xcpl] %></p>
+             <p> Bairro: <%= data[:xbairro] %></p>
+             <p> Codigo do Municipio: <%= data[:cmun] %></p>
+             <p> Municipio: <%= data[:xmun] %></p>
+             <p> Eatado: <%= data[:uf] %></p>
+             <p> Cep:<%= data[:cep] %></p>
+             <p> Codigo do Pais: <%= data[:cpais] %></p>
+             <p> Pais: <%= data[:xpais] %></p>
+             <p> Telefone: <%= data[:fone] %></p>
+      </p>
+        <p><strong> Destinatário:</strong>
+            <p> CNPJ: <%= data[:dest_cnpj] %> </p>
+            <p> Nome: <%= data[:dest_xnome] %> </p>
+            <p> <strong>Endereço: </strong> </p>
+            <p> Longradouro: <%= data[:dest_xlgr] %> </p>
+            <p> Numero: <%= data[:dest_nro] %> </p>
+            <p> Bairro: <%= data[:dest_xbairro] %> </p>
+            <p> Codigo do Municipio: <%= data[:dest_cmun] %> </p>
+            <p> Municipio: <%= data[:dest_xmun] %> </p>
+            <p> Estado: <%= data[:dest_uf] %> </p>
+            <p> Cep: <%= data[:dest_cep] %> </p>
+            <p> Codigo do Pais: <%= data[:dest_xpais] %> </p>
+            <p> Pais: <%= data[:dest_xpais] %> </p>
+            <p> Indiedest: <%= data[:indiedest] %> </p>
+        </p>
+
+
+         <h2>Produtos Listados</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>NCM</th>
+              <th>CFOP</th>
+              <th>Unidade Comercializada </th>
+              <th>Quantidade Comercializada</th>
+              <th>Valor Unitario</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><%= data[:product_description] %></td>
+                <td><%= data[:ncm] %></td>
+                <td><%= data[:cfop] %></td>
+                <td><%= data[:ucom] %></td>
+                <td><%= data[:qcom] %></td>
+                <td><%= data[:vuncom] %></td>
+              </tr>
+          </tbody>
+        </table>
+
+
+        <h2>Impostos Associados</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ICMS</th>
+              <th>IPI</th>
+              <th>PIS</th>
+              <th>CONFINS</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><%= data[:vicms] %></td>
+                <td><%= data[:vipi] %></td>
+                <td><%= data[:vpis] %></td>
+                <td><%= data[:ucom] %></td>
+                <td><%= data[:vCOFINS] %></td>
+              </tr>
+          </tbody>
+        </table>
+      <% end %>
+    <% else %>
+       <p>Nenhum arquivo XML foi anexado.</p>
     <% end %>
 </div>

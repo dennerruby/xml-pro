@@ -1,5 +1,5 @@
 <%= form_with model: @xml_processing, local: true do |form| %>
-  <%= form.label :xml_file %>
-  <%= form.file_field :xml_file %>
+  <%= form.label :xml_files %>
+  <%= form.file_field :xml_file, multiple: true %>
   <%= form.submit %>
 <% end %>
