@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, except: :new
+  before_action :authenticate_user!, except: :home
 end
